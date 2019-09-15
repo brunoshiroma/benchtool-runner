@@ -11,7 +11,7 @@
     },{
         "url": "https://github.com/brunoshiroma/benchtool-java/releases/download/v0.1.0-SNAPSHOT-20190915_1/benchtool-java-0.1.0-SNAPSHOT-20190915_1.jar",
         "name" : "java-12",
-        "runCommand" : "/usr/lib/jvm/zulu-12-amd64/bin/java -Xss1024M -jar benchtool-java-0.1.0-SNAPSHOT-20190915_1.jar {benchtype} {nelement} {executionCount}",
+        "runCommand" : "java -Xss1024M -jar benchtool-java-0.1.0-SNAPSHOT-20190915_1.jar {benchtype} {nelement} {executionCount}",
         "unzip" : false
     },{
         "url":"https://github.com/brunoshiroma/benchtool-dotnetcore/releases/download/v0.1.0-SNAPSHOT-20190915_1/benchtool-dotnetcore_SNAPSHOT_20190915_1.zip",
