@@ -4,9 +4,7 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-18.04
-
     - name: Run
       run: |
         python benchtool_runner/main.py config_sample.json
