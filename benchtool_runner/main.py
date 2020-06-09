@@ -41,20 +41,23 @@ def main():
             bench = subprocess.Popen(commandLine.split(" "), stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
             stdout,stderr = bench.communicate()
             rawResult = stdout.decode('ascii')
+
+            logging.debug("RAW RESULT {raw}".format(raw=rawResult))
+
             resultParts = rawResult.split(" ")
 
             executionMs = resultParts[0].strip()
             resultData = resultParts[1].strip()
 
             if resultData != config_json["validResult"]:
-                logging.warn("Result {resultData} from {name} is not valid, will be ignored".format(resultData=resultData, name=benchtool["name"]))
+                logging.warning("Result {resultData} from {name} is not valid, will be ignored".format(resultData=resultData, name=benchtool["name"]))
                 resultData = None
 
             result.insert(0, (benchtool["name"], int(executionMs), resultData))
 
             logging.info("Result from {benchname} execution time {executionMs}, result data {resultData}".format(benchname=benchtool["name"], executionMs=executionMs, resultData=resultData))
             if stderr is not None:
-                logging.warn(stderr)
+                logging.warning(stderr)
 
         #sort result by execution ms
         result.sort(key = operator.itemgetter(1))
