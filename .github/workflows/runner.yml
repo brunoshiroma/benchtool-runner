@@ -9,4 +9,4 @@ jobs:
     - uses: actions/checkout@v1
     - name: Run
       run: |
-        python benchtool_runner/main.py config_sample.json
+        python3 benchtool_runner/main.py config_sample.json
