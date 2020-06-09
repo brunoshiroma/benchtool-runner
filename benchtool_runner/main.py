@@ -32,31 +32,13 @@ def main():
         logging.debug(config_json["version"])
         logging.debug("Execution count {count}".format(count=executionCount))
 
+        runCommand = "docker run {image} {benchtype} {nelement} {executionCount}"
+
         for benchtool in config_json["benchtools"]:
-            benchWorkDir = "{workdir}/{name}".format(name= benchtool["name"], workdir=workdir)
-            logging.debug("downloading {url}".format(url= benchtool["url"]))
-            local_file, headers = urllib.request.urlretrieve( benchtool["url"])
-            logging.debug("downloaded ({bytes} bytes) file into {url}".format(url= local_file, bytes=headers["Content-Length"]))
-
-            if "unzip" not in benchtool or ("unzip" in benchtool and benchtool["unzip"] != False):
-                with ZipFile(local_file, 'r') as zip:
-                    zip.extractall(benchWorkDir)
-            else:
-                if "Content-Disposition" in headers:
-                    fileName = headers["Content-Disposition"]
-
-                    if fileName.startswith("attachment; filename="):
-                        fileName = fileName[21:]#removes the http protocol part
-                    
-                    if not os.path.exists(benchWorkDir):
-                        os.mkdir(benchWorkDir)
-
-                    shutil.copy2(local_file, "{workdir}/{filename}".format(workdir=benchWorkDir,filename=fileName))
-
             #exec the command..
-            commandLine = benchtool["runCommand"].format(executionCount=executionCount, nelement=config_json["nElement"], benchtype=config_json["benchType"])
+            commandLine = runCommand.format(image=benchtool["image"], executionCount=executionCount, nelement=config_json["nElement"], benchtype=config_json["benchType"])
             logging.debug("Executing {commands}".format(commands=commandLine))
-            bench = subprocess.Popen(commandLine.split(" "), stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=benchWorkDir)
+            bench = subprocess.Popen(commandLine.split(" "), stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
             stdout,stderr = bench.communicate()
             rawResult = stdout.decode('ascii')
             resultParts = rawResult.split(" ")
