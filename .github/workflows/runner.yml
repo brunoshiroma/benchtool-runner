@@ -5,6 +5,7 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-18.04
+    container: docker:19.03.11-dind
     steps:
     - uses: actions/checkout@v1
     - name: Run
