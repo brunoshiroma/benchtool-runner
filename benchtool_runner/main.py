@@ -60,14 +60,21 @@ def main():
 
             result.insert(0, (benchtool["name"], int(executionMs), resultData))
 
-            logging.info("Result from {benchname} execution time {executionMs}, result data {resultData}".format(benchname=benchtool["name"], executionMs=executionMs, resultData=resultData))
+            resultTrunc = ""
+
+            if resultData != None :
+                resultTrunc = resultData[:min(len(resultData), 10)
+
+            logging.info("Result from {benchname} execution time {executionMs}, partial result data {resultData}".format(benchname=benchtool["name"], executionMs=executionMs, resultData=resultTrunc))
             if stderr is not None:
                 logging.warning(stderr)
 
         #sort result by execution ms
         result.sort(key = operator.itemgetter(1))
 
-        logging.info(result)
+        for singleResult in result :
+            logging.info("RESULT FROM {name} {executionMs}ms".format(name=singleResult[0], executionMs=singleResult[1]) )
+        
         logging.info("Faster bench {name} with execution time of {executionMs}ms".format(name=result[0][0], executionMs=result[0][1]))
 
 if __name__ == "__main__" :
