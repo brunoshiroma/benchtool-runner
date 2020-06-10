@@ -32,17 +32,22 @@ def main():
         logging.debug(config_json["version"])
         logging.debug("Execution count {count}".format(count=executionCount))
 
+        pullCommand = "docker pull {image}"
         runCommand = "docker run {image} {benchtype} {nelement} {executionCount}"
 
         for benchtool in config_json["benchtools"]:
+            #pull first
+            commandLine = pullCommand.format(image=benchtool["image"])
+            logging.debug("Executing PULL {commands}".format(commands=pullCommand))
+            pull = subprocess.Popen(commandLine.split(" "), stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            stdout,stderr = pull.communicate()
+
             #exec the command..
             commandLine = runCommand.format(image=benchtool["image"], executionCount=executionCount, nelement=config_json["nElement"], benchtype=config_json["benchType"])
             logging.debug("Executing {commands}".format(commands=commandLine))
             bench = subprocess.Popen(commandLine.split(" "), stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
             stdout,stderr = bench.communicate()
             rawResult = stdout.decode('ascii')
-
-            logging.debug("RAW RESULT {raw}".format(raw=rawResult))
 
             resultParts = rawResult.split(" ")
 
