@@ -38,7 +38,7 @@ def main():
         for benchtool in config_json["benchtools"]:
             #pull first
             commandLine = pullCommand.format(image=benchtool["image"])
-            logging.debug("Executing PULL {commands}".format(commands=pullCommand))
+            logging.debug("Executing PULL {commands}".format(commands=commandLine))
             pull = subprocess.Popen(commandLine.split(" "), stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
             stdout,stderr = pull.communicate()
 
@@ -62,10 +62,10 @@ def main():
 
             resultTrunc = ""
 
-            if resultData != None :
-                resultTrunc = resultData[:min(len(resultData), 10)
+            if resultData != None:
+                resultTrunc = resultData[:min(len(resultData), 10)]
 
-            logging.info("Result from {benchname} execution time {executionMs}, partial result data {resultData}".format(benchname=benchtool["name"], executionMs=executionMs, resultData=resultTrunc))
+            logging.info("Result from {benchname} execution time {executionMs}, partial result data {resultData}".format(benchname=benchtool["name"], executionMs=executionMs, resultData=resultTrunc) )
             if stderr is not None:
                 logging.warning(stderr)
 
