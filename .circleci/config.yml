@@ -4,4 +4,5 @@ jobs:
    machine: true
    steps:
      - checkout
-     - run: python3 benchtool_runner/main.py config_sample.json
+     - run: pyenv global 3.5.2
+     - run: python benchtool_runner/main.py config_sample.json
