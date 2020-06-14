@@ -1,0 +1,11 @@
+version: 2
+jobs:
+ build:
+   machine: true
+   steps:
+     - checkout
+     - run: pyenv global 3.5.2
+     - run: lscpu
+     - run: cat /proc/cpuinfo
+     - run: free -h
+     - run: python benchtool_runner/main.py config_sample.json
