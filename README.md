@@ -12,3 +12,5 @@ This script, uses by default the config with name config.json
  * https://github.com/brunoshiroma/benchtool_julia
  * https://github.com/brunoshiroma/benchtool-java
  * https://github.com/brunoshiroma/benchtool-dotnetcore
+ * https://github.com/brunoshiroma/benchtool-rust
+ * https://github.com/brunoshiroma/benchtool-cpp
