@@ -14,11 +14,12 @@ services:
 before_script:
   - apk update
   - apk add python3
+  - apk add util-linux
 
 build:
   stage: test
   script:
     - lscpu
     - cat /proc/cpuinfo
-    - free -h
+    - free -m
     - python3 benchtool_runner/main.py config_sample.json
