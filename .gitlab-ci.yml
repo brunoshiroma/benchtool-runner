@@ -1,4 +1,4 @@
-image: ubuntu:20.04
+image: docker:19.03.0
 
 variables:
   DOCKER_DRIVER: overlay2
@@ -12,8 +12,8 @@ services:
   - docker:19.03.0-dind
 
 before_script:
-  - apt-get update
-  - apt-get install -y docker.io python3
+  - apk update
+  - apk add python3
 
 build:
   stage: test
