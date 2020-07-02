@@ -1,0 +1,24 @@
+image: ubuntu:20.04
+
+variables:
+  DOCKER_DRIVER: overlay2
+  # Create the certificates inside this directory for both the server
+  # and client. The certificates used by the client will be created in
+  # /certs/client so we only need to share this directory with the
+  # volume mount in `config.toml`.
+  DOCKER_TLS_CERTDIR: "/certs"
+
+services:
+  - docker:19.03.0-dind
+
+before_script:
+  - apt-get update
+  - apt-get install docker.io
+
+build:
+  stage: test
+  script:
+    - lscpu
+    - cat /proc/cpuinfo
+    - free -h
+    - python benchtool_runner/main.py config_sample.json
