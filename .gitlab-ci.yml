@@ -13,7 +13,7 @@ services:
 
 before_script:
   - apt-get update
-  - apt-get install -y docker.io
+  - apt-get install -y docker.io python3
 
 build:
   stage: test
@@ -21,4 +21,4 @@ build:
     - lscpu
     - cat /proc/cpuinfo
     - free -h
-    - python benchtool_runner/main.py config_sample.json
+    - python3 benchtool_runner/main.py config_sample.json

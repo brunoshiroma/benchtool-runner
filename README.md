@@ -1,5 +1,10 @@
 ## Runner for benchtool
 
+![](https://github.com/brunoshiroma/benchtool-runner/workflows/Python%20application/badge.svg)
+![](https://gitlab.com/brunoshiroma/benchtool-runner/badges/master/pipeline.svg)
+[![CircleCI](https://circleci.com/gh/brunoshiroma/benchtool-runner.svg?style=svg)](https://circleci.com/gh/brunoshiroma/benchtool-runner)
+
+
 Run with command :
 ```
 python3 benchtool_runner/main.py [config_sample.json]
