@@ -20,5 +20,10 @@ steps:
   displayName: 'Use Python $(python.version)'
 
 - script: |
+    cat /proc/cpuinfo
+    lscpu
+  displayName: 'info'
+
+- script: |
     python benchtool_runner/main.py config_sample.json
   displayName: 'run'
