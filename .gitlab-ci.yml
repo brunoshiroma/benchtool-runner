@@ -22,4 +22,5 @@ build:
     - lscpu
     - cat /proc/cpuinfo
     - free -m
+    - pip install -r requirements.txt
     - python3 benchtool_runner/main.py config_sample.json

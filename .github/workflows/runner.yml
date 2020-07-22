@@ -15,4 +15,5 @@ jobs:
         apk add util-linux
         lscpu
         free -m
+        pip install -r requirements.txt
         python3 benchtool_runner/main.py config_sample.json

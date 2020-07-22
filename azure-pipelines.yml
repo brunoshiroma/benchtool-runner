@@ -25,5 +25,9 @@ steps:
   displayName: 'info'
 
 - script: |
+    pip install -r requirements.txt
+  displayName: 'dependencies'
+
+- script: |
     python benchtool_runner/main.py config_sample.json
   displayName: 'run'
