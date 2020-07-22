@@ -1,2 +1,7 @@
 .vscode
 workdir
+
+#python venv
+venv
+
+credentials.json

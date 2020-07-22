@@ -7,6 +7,29 @@ import logging
 import shutil
 import os
 import operator
+from googleapiclient.discovery import build
+import pickle
+import codecs
+from google.auth.transport.requests import Request
+import re
+from datetime import datetime
+
+def send_to_sheet(bench, ms, result, success, cpu_info, config, date, service):
+    if result != None:
+                result = result[:min(len(result), 10)]
+
+    str_date = date.strftime('%Y/%m/%d %H:%M:%S')
+
+    if os.environ['SEND_TO_SHEET'] == 'true' :
+        values = [
+                    [
+                        os.environ['RUNNER_ENV'], bench, ms, success, cpu_info, str_date, config['nElement'], result
+                    ]
+                ]
+        body = {
+            'values': values
+        }
+        sheet_result = service.spreadsheets().values().append(valueInputOption='RAW',range='results!A2:H',spreadsheetId=os.environ['GOOGLE_SHEET_ID'], body=body).execute()
 
 def main():
 
@@ -21,6 +44,27 @@ def main():
 
     with open(config_file_name) as config_file:
         config_json = json.load(config_file)
+
+        #current date
+        now = datetime.now()
+
+        #google sheets    
+        if os.environ['SEND_TO_SHEET'] == 'true' :
+            creds = pickle.loads(codecs.decode(os.environ['GOOGLE_TOKEN'].encode(), 'base64'))
+            creds.refresh(Request())
+            service = build('sheets', 'v4', credentials=creds)
+        else:
+            service = None
+
+        #cpu info
+        cpu_info = "UNKNOWN"
+        command = "cat /proc/cpuinfo"
+        all_info = subprocess.Popen(command.split(" "), stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        stdout,stderr = all_info.communicate()
+        rawResult = stdout.decode('ascii')
+        for line in rawResult.split("\n"):
+            if "model name" in line:
+                cpu_info =  re.sub( ".*model name.*:", "", line,1)
 
         if config_json["loggingLevel"] is not None:
             logging.basicConfig(level=config_json["loggingLevel"])
@@ -56,10 +100,12 @@ def main():
 
             if resultData != config_json["validResult"]:
                 logging.warning("Result {resultData} from {name} is not valid, will be ignored".format(resultData=resultData, name=benchtool["name"]))
+                send_to_sheet(benchtool["name"], int(executionMs), resultData, False, cpu_info, config_json, now, service)
                 resultData = None
 
             result.insert(0, (benchtool["name"], int(executionMs), resultData))
-
+            send_to_sheet(benchtool["name"], int(executionMs), resultData, True, cpu_info, config_json, now, service)
+            
             resultTrunc = ""
 
             if resultData != None:
