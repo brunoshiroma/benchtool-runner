@@ -30,4 +30,9 @@ steps:
 
 - script: |
     python benchtool_runner/main.py config_sample.json
+  env:
+    GOOGLE_TOKEN: $(GOOGLE_TOKEN)
+    GOOGLE_SHEET_ID: $(GOOGLE_SHEET_ID)
+    RUNNER_ENV: $(RUNNER_ENV)
+    SEND_TO_SHEET: $(SEND_TO_SHEET)
   displayName: 'run'
