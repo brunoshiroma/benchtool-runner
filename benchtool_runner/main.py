@@ -14,22 +14,27 @@ from google.auth.transport.requests import Request
 import re
 from datetime import datetime
 
-def send_to_sheet(bench, ms, result, success, cpu_info, config, date, service):
-    if result != None:
-                result = result[:min(len(result), 10)]
-
-    str_date = date.strftime('%Y/%m/%d %H:%M:%S')
-
+def send_to_sheet(results, cpu_info, config, date, service):
+    
     if os.environ['SEND_TO_SHEET'] == 'true' :
-        values = [
-                    [
-                        os.environ['RUNNER_ENV'], bench, ms, success, cpu_info, str_date, config['nElement'], result
-                    ]
-                ]
+
+        str_date = date.strftime('%Y/%m/%d %H:%M:%S')
+        values = []
+
+        #truncate result
+        for result in results:
+            trunc_result = ""
+            if result[2] != None:
+                trunc_result = result[2][:min(len(result), 10)]
+        
+            values.insert(0, [os.environ['RUNNER_ENV'], result[0], result[1], result[3], cpu_info, str_date, config['nElement'], trunc_result])
+
         body = {
             'values': values
         }
         sheet_result = service.spreadsheets().values().append(valueInputOption='RAW',range='results!A2:H',spreadsheetId=os.environ['GOOGLE_SHEET_ID'], body=body).execute()
+        logging.debug(sheet_result)
+
 
 def main():
 
@@ -100,28 +105,28 @@ def main():
 
             if resultData != config_json["validResult"]:
                 logging.warning("Result {resultData} from {name} is not valid, will be ignored".format(resultData=resultData, name=benchtool["name"]))
-                send_to_sheet(benchtool["name"], int(executionMs), resultData, False, cpu_info, config_json, now, service)
-                resultData = None
+                result.insert(0, (benchtool["name"], int(executionMs), resultData, False))
+            else:
+                result.insert(0, (benchtool["name"], int(executionMs), resultData, True))
+                
+                resultTrunc = ""
 
-            result.insert(0, (benchtool["name"], int(executionMs), resultData))
-            send_to_sheet(benchtool["name"], int(executionMs), resultData, True, cpu_info, config_json, now, service)
-            
-            resultTrunc = ""
+                if resultData != None:
+                    resultTrunc = resultData[:min(len(resultData), 10)]
 
-            if resultData != None:
-                resultTrunc = resultData[:min(len(resultData), 10)]
-
-            logging.info("Result from {benchname} execution time {executionMs}, partial result data {resultData}".format(benchname=benchtool["name"], executionMs=executionMs, resultData=resultTrunc) )
-            if stderr is not None:
-                logging.warning(stderr)
-
-        #sort result by execution ms
-        result.sort(key = operator.itemgetter(1))
+                logging.info("Result from {benchname} execution time {executionMs}, partial result data {resultData}".format(benchname=benchtool["name"], executionMs=executionMs, resultData=resultTrunc) )
+                if stderr is not None:
+                    logging.warning(stderr)
 
         for singleResult in result :
-            logging.info("RESULT FROM {name} {executionMs}ms".format(name=singleResult[0], executionMs=singleResult[1]) )
+            logging.info("RESULT FROM {name} {executionMs}ms, success {success}".format(name=singleResult[0], executionMs=singleResult[1], success=singleResult[3]) )
         
-        logging.info("Faster bench {name} with execution time of {executionMs}ms".format(name=result[0][0], executionMs=result[0][1]))
+        #sort result by execution ms
+        success_results = list(filter(lambda r : r[3], result))
+        success_results.sort(key = operator.itemgetter(1))
+
+        logging.info("Faster bench {name} with execution time of {executionMs}ms".format(name=success_results[0][0], executionMs=success_results[0][1]))
+        send_to_sheet(result, cpu_info, config_json, now, service)
 
 if __name__ == "__main__" :
     main()
