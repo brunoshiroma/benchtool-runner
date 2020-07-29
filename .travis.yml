@@ -1,12 +1,13 @@
 dist: bionic
+sudo: required
 
 language: python
 python:
   - "3.8"
 
 install:
-  - apt update
-  - apt install file
+  - sudo apt update
+  - sudo apt install file
   - pip install -r requirements.txt
 
 arch:
