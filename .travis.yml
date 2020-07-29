@@ -23,6 +23,7 @@ matrix:
     
 script:
   - file /bin/bash
+  - docker run hello-world
   - lscpu
   - cat /proc/cpuinfo
   - free -h
