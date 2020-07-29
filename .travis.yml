@@ -5,6 +5,8 @@ python:
   - "3.8"
 
 install:
+  - apt update
+  - apt install file
   - pip install -r requirements.txt
 
 arch:
@@ -19,6 +21,7 @@ matrix:
     arch: arm64
     
 script:
+  - file /bin/bash
   - lscpu
   - cat /proc/cpuinfo
   - free -h
