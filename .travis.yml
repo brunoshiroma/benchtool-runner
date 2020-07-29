@@ -1,0 +1,26 @@
+dist: bionic
+
+language: python
+python:
+  - "3.8"
+
+install:
+  - pip install -r requirements.txt
+
+arch:
+  - amd64
+  - arm64
+
+matrix:
+  include:
+  - os: linux
+    arch: amd64
+  - os: linux
+    arch: arm64
+    
+script:
+  - lscpu
+  - cat /proc/cpuinfo
+  - free -h
+  - python benchtool_runner/main.py config_sample.json 
+    
