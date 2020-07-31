@@ -5,8 +5,6 @@ python:
   - "3.8"
 
 install:
-  - sudo apt update
-  - sudo apt install file
   - pip install -r requirements.txt
 
 arch:
@@ -14,6 +12,12 @@ arch:
   - arm64
 
 os: linux
+
+dist: bionic
+addons:
+  apt:
+    packages:
+    - file
 
 matrix:
   include:
