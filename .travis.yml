@@ -1,5 +1,5 @@
 arch:
-  - amd64
+  #- amd64
   - arm64
 
 os: linux
@@ -13,10 +13,13 @@ python:
 install:
   - pip install -r requirements.txt
 
+services:
+  - docker
+
 matrix:
   include:
-  - os: linux
-    arch: amd64
+  #- os: linux
+  #  arch: amd64
   - os: linux
     arch: arm64
     
