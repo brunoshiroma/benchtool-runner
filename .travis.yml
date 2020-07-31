@@ -21,8 +21,5 @@ matrix:
     arch: arm64
     
 script:
-  - file /bin/bash
-  - lscpu
-  - free -h
   - python benchtool_runner/main.py config_sample.json 
     
