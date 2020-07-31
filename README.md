@@ -5,6 +5,7 @@
 [![CircleCI](https://circleci.com/gh/brunoshiroma/benchtool-runner.svg?style=svg)](https://circleci.com/gh/brunoshiroma/benchtool-runner)
 [![Build Status](https://brunoshiroma.visualstudio.com/benchtool-runner/_apis/build/status/brunoshiroma.benchtool-runner?branchName=master)](https://brunoshiroma.visualstudio.com/benchtool-runner/)
 [![Build Status](https://travis-ci.com/brunoshiroma/benchtool-runner.svg?branch=master)](https://travis-ci.com/brunoshiroma/benchtool-runner)
+[![Build Status](https://jun.beta.teamcity.com/app/rest/builds/buildType:(id:BenchtoolRunner_Build)/statusIcon?quest=1)](https://jun.beta.teamcity.com/viewType.html?buildType:(id:BenchtoolRunner_Build)?quest=1)
 
 Run with command :
 ```bash
@@ -43,4 +44,4 @@ SEND_TO_SHEET=true
 python3 benchtool_runner/generate_token.py [SHEET_ID]
 ```
 It will open a browser to ask for permissions and then output the generated token  
-You will need a **credentials.json**, in same dictory of execution [Google documentation](https://developers.google.com/docs/api/quickstart/python) for Python
+You will need a **credentials.json**, in same dictory of execution, [Google documentation](https://developers.google.com/docs/api/quickstart/python) for Python
