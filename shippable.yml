@@ -1,5 +1,7 @@
 language: python
 
+python:
+  - 3.2
 
 #branches:
 #  only:
@@ -17,5 +19,5 @@ build:
     - free
     - cat /proc/cpuinfo
   ci:
-    - pip install -r requirements.txt
-    - python benchtool_runner/main.py config_sample.json
+    - "pip3 install -r requirements.txt"
+    - "python3 benchtool_runner/main.py config_sample.json"
