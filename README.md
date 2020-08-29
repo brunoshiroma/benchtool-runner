@@ -27,6 +27,7 @@ This script, uses by default the config with name config.json
  * https://github.com/brunoshiroma/benchtool-dotnetcore
  * https://github.com/brunoshiroma/benchtool-rust
  * https://github.com/brunoshiroma/benchtool-cpp
+ * https://github.com/brunoshiroma/benchtool-android
 
 #### Sheet with results:
 [Google Spreadsheets](https://docs.google.com/spreadsheets/d/1unaPbZy-9vFtzbWeRxfC4IzcuGVExz6aO2EXjePUhro/edit?usp=sharing)
