@@ -6,6 +6,7 @@
 [![Build Status](https://brunoshiroma.visualstudio.com/benchtool-runner/_apis/build/status/brunoshiroma.benchtool-runner?branchName=master)](https://brunoshiroma.visualstudio.com/benchtool-runner/)
 [![Build Status](https://travis-ci.com/brunoshiroma/benchtool-runner.svg?branch=master)](https://travis-ci.com/brunoshiroma/benchtool-runner)
 [![Build Status](https://jun.beta.teamcity.com/app/rest/builds/buildType:(id:BenchtoolRunner_Build)/statusIcon?quest=1)](https://jun.beta.teamcity.com/viewType.html?buildType:(id:BenchtoolRunner_Build)?quest=1)
+ [![Run Status](https://api.shippable.com/projects/5ef34dffaf951100075e6924/badge?branch=master)]() 
 
 Run with command :
 ```bash
