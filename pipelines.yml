@@ -1,9 +1,21 @@
-steps:
-- name: step_1
-  type: Bash
-  configuration:
-    inputResources:
-      - name: github     # Trigger execution on code commit
-  execution:
-    onExecute:
-      - echo "Hello World!"
+resources:
+  - name: github-benchtool-runner
+    type: GitRepo
+    configuration:
+      # SCM integration where the repository is located
+      gitProvider: github
+      path: brunoshiroma/benchtool-runner
+      branches:
+        include: master
+
+pipelines:
+  - name: my_first_pipeline
+    steps:
+      - name: p1_s1
+        type: Bash
+        configuration:
+          inputResources:
+            - name: github-benchtool-runner
+        execution:
+          onExecute:
+            - echo $github-benchtool-runner_commitSha
