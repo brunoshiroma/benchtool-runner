@@ -1,0 +1,9 @@
+steps:
+- name: step_1
+  type: Bash
+  configuration:
+    inputResources:
+      - name: github     # Trigger execution on code commit
+  execution:
+    onExecute:
+      - echo "Hello World!"
