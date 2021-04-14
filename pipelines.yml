@@ -1,5 +1,5 @@
 resources:
-  - name: github-benchtool-runner
+  - name: github_benchtool_runner
     type: GitRepo
     configuration:
       # SCM integration where the repository is located
@@ -15,7 +15,7 @@ pipelines:
         type: Bash
         configuration:
           inputResources:
-            - name: github-benchtool-runner
+            - name: github_benchtool_runner
         execution:
           onExecute:
-            - echo $github-benchtool-runner_commitSha
+            - echo $github_benchtool_runner_commitSha
