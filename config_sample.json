@@ -8,8 +8,8 @@
         "image": "brunoshiroma/benchtool-rust:latest",
         "name" : "rust"
     },{
-        "image":"brunoshiroma/benchtool-dotnetcore:latest",
-        "name" : "dotnetcore-3-1"
+        "image":"ghcr.io/brunoshiroma/benchtool-dotnetcore:master",
+        "name" : "dotnet6"
     },{
         "image":"brunoshiroma/benchtool-java:latest",
         "name" : "java-14"
