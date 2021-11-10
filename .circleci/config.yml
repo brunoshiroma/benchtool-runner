@@ -4,7 +4,7 @@ jobs:
    machine: true
    steps:
      - checkout
-     - run: pyenv global 3.5.2
+     - run: pyenv global 3.7
      - run: lscpu
      - run: cat /proc/cpuinfo
      - run: free -h
