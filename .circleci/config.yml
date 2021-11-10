@@ -2,8 +2,11 @@ version: 2
 jobs:
  build:
    machine: true
+   resource_class: large
    steps:
      - checkout
+     - run: pyenv install --list
+     - run: pyenv install 3.7.12 
      - run: pyenv global 3.7.12
      - run: lscpu
      - run: cat /proc/cpuinfo
