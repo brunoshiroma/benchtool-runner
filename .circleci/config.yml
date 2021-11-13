@@ -25,3 +25,9 @@ jobs:
      - run: free -h
      - run: pip install -r requirements.txt
      - run: python benchtool_runner/main.py config_sample.json
+
+workflows:
+  build:
+    jobs:
+      - arm64
+      - amd64
