@@ -1,8 +1,20 @@
 version: 2
 jobs:
- build:
+ amd64:
    machine: true
    resource_class: large
+   steps:
+     - checkout
+     - run: pyenv install --list
+     - run: pyenv install 3.6.3
+     - run: pyenv global 3.6.3
+     - run: lscpu
+     - run: cat /proc/cpuinfo
+     - run: free -h
+     - run: pip install -r requirements.txt
+     - run: python benchtool_runner/main.py config_sample.json
+ arm64:
+   resource_class: arm.medium
    steps:
      - checkout
      - run: pyenv install --list
