@@ -2,7 +2,8 @@ version: 2.1
 
 jobs:
   amd64:
-    machine: true
+    machine:
+      image: ubuntu-2004:202101-01
     resource_class: large
     steps:
       - checkout
@@ -15,6 +16,8 @@ jobs:
       - run: pip install -r requirements.txt
       - run: python benchtool_runner/main.py config_sample.json
   arm64:
+    machine:
+      image: ubuntu-2004:202101-01
     resource_class: arm.medium
     steps:
       - checkout
