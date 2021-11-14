@@ -70,9 +70,6 @@ def main():
         for line in rawResult.split("\n"):
             if re.search("model name", line, re.IGNORECASE):
                 cpu_info =  re.sub( ".*model name.*:", "", line,count=1, flags=re.I).strip()
-                
-        print(cpu_info)
-        os.exit(0)
 
         if config_json["loggingLevel"] is not None:
             logging.basicConfig(level=config_json["loggingLevel"])
