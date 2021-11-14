@@ -63,13 +63,16 @@ def main():
 
         #cpu info
         cpu_info = "UNKNOWN"
-        command = "cat /proc/cpuinfo"
+        command = "lscpu"
         all_info = subprocess.Popen(command.split(" "), stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         stdout,stderr = all_info.communicate()
         rawResult = stdout.decode('ascii')
         for line in rawResult.split("\n"):
-            if "model name" in line:
-                cpu_info =  re.sub( ".*model name.*:", "", line,1)
+            if re.search("model name", line, re.IGNORECASE):
+                cpu_info =  re.sub( ".*model name.*:", "", line,count=1, flags=re.I).strip()
+                
+        print(cpu_info)
+        os.exit(0)
 
         if config_json["loggingLevel"] is not None:
             logging.basicConfig(level=config_json["loggingLevel"])
