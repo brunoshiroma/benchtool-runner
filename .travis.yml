@@ -25,5 +25,7 @@ matrix:
     virt: vm
     
 script:
+  - cat /proc/cpuinfo
+  - lscpu
   - python benchtool_runner/main.py config_sample.json 
     
