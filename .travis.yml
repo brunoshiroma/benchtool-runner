@@ -2,8 +2,6 @@ arch:
   - amd64
   - arm64-graviton2
 
-os: linux
-
 dist: bionic
 
 language: python
@@ -20,9 +18,10 @@ matrix:
   include:
   - os: linux
     arch: amd64
+    virt: lxd
   - os: linux
     arch: arm64-graviton2
-    virt: vm
+    virt: lxd
     
 script:
   - cat /proc/cpuinfo
