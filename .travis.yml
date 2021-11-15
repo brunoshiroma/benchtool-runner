@@ -11,9 +11,6 @@ python:
 install:
   - pip install -r requirements.txt
 
-services:
-  - docker
-
 matrix:
   include:
   - os: linux
