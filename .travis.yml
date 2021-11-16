@@ -1,22 +1,27 @@
-os: linux
-dist: bionic
-virt: lxd
-
-language: python
-python:
-  - "3.6"
-
-install:
-  - pip install -r requirements.txt
-
 matrix:
   include:
   - arch: amd64
+    os: linux
+    dist: bionic
+    virt: lxd
+    language: python
+    python:
+      - "3.6"
+    install:
+      - pip install -r requirements.txt
     script:
       - cat /proc/cpuinfo
       - lscpu
       - python benchtool_runner/main.py config_sample.json 
   - arch: arm64-graviton2
+    os: linux
+    dist: bionic
+    virt: lxd
+    language: python
+    python:
+      - "3.6"
+    install:
+      - pip install -r requirements.txt
     script:
       - cat /proc/cpuinfo
       - lscpu
