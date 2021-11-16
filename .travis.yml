@@ -1,8 +1,8 @@
 arch:
   - amd64
-  - arm64-graviton2
+  - arm64
 
-virt: vm
+virt: lxd
 
 os: linux
 dist: focal
