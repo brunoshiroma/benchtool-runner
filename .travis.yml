@@ -2,9 +2,10 @@ arch:
   - amd64
   - arm64-graviton2
 
-os: linux
+virt: vm
 
-dist: bionic
+os: linux
+dist: focal
 
 language: python
 python:
