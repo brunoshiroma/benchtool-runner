@@ -12,10 +12,13 @@ install:
 matrix:
   include:
   - arch: amd64
+    script:
+      - cat /proc/cpuinfo
+      - lscpu
+      - python benchtool_runner/main.py config_sample.json 
   - arch: arm64-graviton2
-    
-script:
-  - cat /proc/cpuinfo
-  - lscpu
-  - python benchtool_runner/main.py config_sample.json 
+    script:
+      - cat /proc/cpuinfo
+      - lscpu
+      - python benchtool_runner/main.py config_sample.json 
     
