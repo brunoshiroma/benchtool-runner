@@ -12,7 +12,7 @@
         "name" : "dotnet6"
     },{
         "image":"brunoshiroma/benchtool-java:latest",
-        "name" : "java-14"
+        "name" : "java"
     },{
         "image":"brunoshiroma/benchtool-cpp:latest",
         "name" : "cpp"
