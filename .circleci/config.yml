@@ -3,13 +3,13 @@ version: 2.1
 jobs:
   amd64:
     machine:
-      image: ubuntu-2004:202101-01
+      image: ubuntu-2204:2023.07.2
     resource_class: large
     steps:
       - checkout
       - run: pyenv install --list
-      - run: pyenv install 3.6.3
-      - run: pyenv global 3.6.3
+      - run: pyenv install 3.10.12
+      - run: pyenv global 3.10.12
       - run: lscpu
       - run: cat /proc/cpuinfo
       - run: free -h
@@ -17,13 +17,13 @@ jobs:
       - run: python benchtool_runner/main.py config_sample.json
   arm64:
     machine:
-      image: ubuntu-2004:202101-01
+      image: ubuntu-2204:2023.07.2
     resource_class: arm.medium
     steps:
       - checkout
       - run: pyenv install --list
-      - run: pyenv install 3.6.3
-      - run: pyenv global 3.6.3
+      - run: pyenv install 3.10.12
+      - run: pyenv global 3.10.12
       - run: lscpu
       - run: cat /proc/cpuinfo
       - run: free -h
