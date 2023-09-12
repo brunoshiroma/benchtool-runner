@@ -12,7 +12,10 @@ venv/touchfile: requirements.txt
 	touch .venv/touchfile
 
 token:
-	. .venv/bin/activate; python3 benchtool_runner/generate_token.py 1unaPbZy-9vFtzbWeRxfC4IzcuGVExz6aO2EXjePUhro
+	. .venv/bin/activate; python3 benchtool_runner/generate_token.py
 
 run:
 	. .venv/bin/activate; python3 benchtool_runner/main.py config_sample.json
+
+run-without-publish:
+	. .venv/bin/activate; SEND_TO_SHEET=false python3 benchtool_runner/main.py config_sample.json 
