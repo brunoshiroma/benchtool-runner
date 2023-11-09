@@ -91,6 +91,10 @@ def main():
             pull = subprocess.Popen(commandLine.split(" "), stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
             stdout,stderr = pull.communicate()
 
+            if stderr:
+                logging.debug("Error on pulling docker image {error}".format(error=stderr))
+                continue
+
             #exec the command..
             commandLine = runCommand.format(image=benchtool["image"], executionCount=executionCount, nelement=config_json["nElement"], benchtype=config_json["benchType"])
             logging.debug("Executing {commands}".format(commands=commandLine))
@@ -101,13 +105,19 @@ def main():
             resultParts = rawResult.split(" ")
 
             executionMs = resultParts[0].strip()
+
+            executionMsInt = 0
+
+            if executionMs.isnumeric():
+                executionMsInt = int(executionMs)
+
             resultData = resultParts[1].strip()
 
             if resultData != config_json["validResult"]:
                 logging.warning("Result {resultData} from {name} is not valid, will be ignored".format(resultData=resultData, name=benchtool["name"]))
-                result.insert(0, (benchtool["name"], int(executionMs), resultData, False))
+                result.insert(0, (benchtool["name"], executionMsInt, resultData, False))
             else:
-                result.insert(0, (benchtool["name"], int(executionMs), resultData, True))
+                result.insert(0, (benchtool["name"], executionMsInt, resultData, True))
                 
                 resultTrunc = ""
 
