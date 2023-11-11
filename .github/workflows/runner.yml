@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: [ubuntu-latest, macos-latest-xlarge]
     container: docker:19.03.11-dind
     steps:
     - uses: actions/checkout@v1
