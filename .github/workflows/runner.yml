@@ -4,10 +4,12 @@ on: [push]
 
 jobs:
   build:
-    runs-on: [ubuntu-latest, macos-latest-xlarge]
-    container: docker:19.03.11-dind
+    runs-on: [ubuntu-latest]
+    container: docker:docker:24.0-dind
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 2
     - name: Run
       env:
         GOOGLE_TOKEN: ${{ secrets.GOOGLE_TOKEN }}
