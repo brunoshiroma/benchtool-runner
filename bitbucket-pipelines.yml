@@ -1,0 +1,12 @@
+image: python:3-bookworm
+
+pipelines:
+  default:
+    - step:
+        caches:
+          - pip
+        script:
+          - pip install -r requirements.txt
+          - python3 benchtool_runner/main.py config_sample.json
+        services:
+          - docker
